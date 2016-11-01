@@ -8,6 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -49,6 +55,12 @@ public class MainActivity extends ActionBarActivity {
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+        ArrayAdapter<String> mForecastAdapter;
+
+
+
+
+
 
         public PlaceholderFragment() {
         }
@@ -56,7 +68,38 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
+            // create some date for the listview
+            String[] data = {
+                    "Mon 10/21 - Sunny - 31/19",
+                    "Tue 10/22 - Foggy - 21/7",
+                    "Wed 10/23 - Cloudy - 25/11",
+                    "Thu 10/24 - Rainy - 18/11",
+                    "Fri 10/25 - Foggy - 21/3",
+                    "Sat 10/26 - Trapped in weatherstation - 17/-3",
+                    "Sun 10/27 - Sunny - 20/7",
+            };
+
+            List<String> weekForcast = new ArrayList<String>(Arrays.asList(data));
+
+
+
+            mForecastAdapter =
+                    new ArrayAdapter<String> (
+                            getActivity() , // current of this activity
+                            R.layout.list_item_forecast, // name the layout ID.
+                            R.id.list_item_forecast_textview, weekForcast);
+
+
+
+
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+
+                // Get Reference to the listview, attach adapter to it yuppp.
+            ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast) ;
+            listView.setAdapter(mForecastAdapter);
+
             return rootView;
         }
     }
